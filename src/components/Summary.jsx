@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
-import { copy, linkIcon, loader, tick } from "../assets";
 import { useLazyGetSummaryQuery } from "../services/article";
+import { CiLink } from "react-icons/ci";
+import { TiTick } from "react-icons/ti";
+import { IoMdCopy } from "react-icons/io";
+import { BounceLoader } from "react-spinners";
 
-const Demo = () => {
+const Summary = () => {
   const [article, setArticle] = useState({
     url: "",
     content: "",
@@ -40,7 +43,7 @@ const Demo = () => {
   const handleCopy = (url) => {
     setCopied(url);
     navigator.clipboard.writeText(url);
-    setTimeout(() => setCopied(false), 3000);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   return (
@@ -50,11 +53,7 @@ const Demo = () => {
           className="relative flex justify-center items-center"
           onSubmit={handleSubmit}
         >
-          <img
-            src={linkIcon}
-            alt="linkIcon"
-            className="absolute left-0 my-2 ml-3 w-5"
-          />
+          <CiLink className="absolute left-0 my-2 ml-3 w-5" />
           <input
             type="url"
             placeholder="Enter a URL"
@@ -69,7 +68,7 @@ const Demo = () => {
             type="submit"
             className="submit_btn peer-focus:border-gray-700 peer-focus:text-gray-700"
           >
-            ✔️
+            <TiTick />
           </button>
         </form>
         <div className="flex flex-col gap-1 max-h-60 overflow-y-auto">
@@ -80,11 +79,11 @@ const Demo = () => {
               className="link_card"
             >
               <div className="copy_btn" onClick={() => handleCopy(item.url)}>
-                <img
-                  src={copied === item.url ? tick : copy}
-                  alt="copy"
-                  className="w-[40%] object-contain"
-                />
+                {copied === item.url ? (
+                  <TiTick className="w-[40%] object-contain" />
+                ) : (
+                  <IoMdCopy className="w-[40%] object-contain" />
+                )}
               </div>
               <p className="flex-1 font-satoshi text-blue-700 font-medium text-sm truncate">
                 {item.url}
@@ -95,7 +94,7 @@ const Demo = () => {
       </div>
       <div className="my-10 max--w-full flex justify-center items-center">
         {isFetching ? (
-          <img src={loader} alt="loader" className="w-10 h-20 object-contain" />
+          <BounceLoader color="rgb(152,105,47)" />
         ) : error ? (
           <p className="font-inner font-bold text-black text-center">
             Something went wrong....
@@ -108,7 +107,8 @@ const Demo = () => {
           article.summary && (
             <div className="flex flex-col gap-3">
               <h2 className="font-satoshi font-bold text-gray-600 text-xl">
-                Article <span className="blue_gradient">Summary</span>
+                Article{" "}
+                <span style={{ color: "rgb(20,125,202)" }}>Summary</span>
               </h2>
               <div className="summary_box">
                 <p className="font-inner font-medium text-sm text-gray-700">
@@ -123,4 +123,4 @@ const Demo = () => {
   );
 };
 
-export default Demo;
+export default Summary;

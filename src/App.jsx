@@ -1,5 +1,5 @@
-import Hero from "./components/Hero";
-import Demo from "./components/Demo";
+import Navbar from "./components/Navbar";
+import Summary from "./components/summary";
 
 import "./App.css";
 
@@ -10,8 +10,8 @@ function App() {
         <div className="gradient" />
       </div>
       <div className="app">
-        <Hero />
-        <Demo />
+        <Navbar />
+        <Summary />
       </div>
     </main>
   );

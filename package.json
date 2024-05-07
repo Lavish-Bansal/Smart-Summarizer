@@ -1,5 +1,5 @@
 {
-  "name": "ai_summariser",
+  "name": "smart_summariser",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -13,7 +13,9 @@
     "@reduxjs/toolkit": "^2.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-redux": "^9.0.4"
+    "react-icons": "^5.2.1",
+    "react-redux": "^9.0.4",
+    "react-spinners": "^0.13.8"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",
