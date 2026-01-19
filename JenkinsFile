@@ -1,0 +1,27 @@
+pipeline{
+    agent{
+        docker{
+            image 'node:20-alpine'
+        }
+    }
+
+    stages{
+        stage('checkout'){
+            steps {checkout scm}
+        }
+
+        stage('install'){
+            steps {sh 'npm install'}
+        }
+
+        stage('run dev build'){
+            steps {sh 'npm run build'}
+        }
+
+        stage('Build docker image'){
+            steps {
+                sh 'docker build -t vite-dev-app .'
+            }
+        }
+    }
+}
