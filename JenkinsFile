@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:20'
-            args '--user=root -v /var/run/docker.sock:/var/run/docker.sock'
-        }
-    }
+    agent any
 
     environment {
         NPM_CONFIG_CACHE = "${WORKSPACE}/.npm"
@@ -24,14 +19,15 @@ pipeline {
             }
         }
 
-        stage('Install Dependencies') {
-            steps {
-                sh 'npm ci --loglevel=info'
+        stage('Install & Build') {
+            agent {
+                docker {
+                    image 'node:20-alpine'
+                    args '-u node'
+                }
             }
-        }
-
-        stage('Build') {
             steps {
+                sh 'npm ci'
                 sh 'npm run build'
             }
         }
