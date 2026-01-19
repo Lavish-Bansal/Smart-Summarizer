@@ -1,27 +1,44 @@
-pipeline{
-    agent{
-        docker{
-            image 'node:20-alpine'
-            args '--user=root -v /var/run/docker.sock:/var/run/docker.sock'
+pipeline {
+    agent {
+        docker {
+            image 'node:20'
+            args '-v /var/run/docker.sock:/var/run/docker.sock'
         }
     }
 
-    stages{
-        stage('checkout'){
-            steps {checkout scm}
-        }
+    environment {
+        NPM_CONFIG_CACHE = "${WORKSPACE}/.npm"
+    }
 
-        stage('install'){
-            steps {sh 'npm install'}
-        }
+    stages {
 
-        stage('run dev build'){
-            steps {sh 'npm run build'}
-        }
-
-        stage('Build docker image'){
+        stage('Clean Workspace') {
             steps {
-                sh 'docker build -t vite-dev-app .'
+                deleteDir()
+            }
+        }
+
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                sh 'npm ci --loglevel=info'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'npm run build'
+            }
+        }
+
+        stage('Docker Build') {
+            steps {
+                sh 'docker build -t smart-summarizer .'
             }
         }
     }
