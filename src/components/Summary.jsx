@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLazyGetSummaryQuery } from "../services/article";
+import { useLazyGetSummaryQuery } from "../services/article.js";
 import { CiLink } from "react-icons/ci";
 import { TiTick } from "react-icons/ti";
 import { IoMdCopy } from "react-icons/io";

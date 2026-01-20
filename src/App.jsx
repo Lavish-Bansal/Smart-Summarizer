@@ -1,5 +1,5 @@
-import Navbar from "./components/Navbar";
-import Summary from "./components/summary";
+import Navbar from "./components/Navbar.jsx";
+import Summary from "./components/summary.jsx";
 
 import "./App.css";
 
